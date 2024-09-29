@@ -123,7 +123,7 @@ main {
 
 .back-face {
     background-color: #ccc; /* Cor de fundo do verso */
-    color: transparent; /* Texto oculto no verso */
+    color: black; /* Texto oculto no verso */
     transform: rotateY(0deg); /* Mostra o verso inicialmente */
     opacity: 1; /* Garante que o verso não seja transparente */
 }
@@ -134,6 +134,13 @@ main {
 
 .card.flipped .back-face {
     transform: rotateY(180deg); /* Esconde o verso da carta quando virada */
+}
+
+img {
+    border-radius: 12px;
+}
+.card .highlight {
+    background-color: yellow;
 }
 
 
