@@ -11,7 +11,7 @@
      <div class="navegacao">
             <nav>
                 <ul class="menu">
-                    <li><a href="/index.html">Página Inicial</a></li>
+                    <li><a href="index.html">Página Inicial</a></li>
                 </ul>
             </nav>
         </div>
@@ -19,9 +19,114 @@
 
     <main>
         <div class="content"><h2>Memory Game</h2>
-            <div class="game">
-                <div class="cards">
-                    
+            <div class="menugame">
+                <div id="scoreboard">
+                    <span>Jogador: <span id="player-name"></span></span>
+                    <span>Pontuação: <span id="score">0</span></span>
+                    <button id="restart">Jogar Novamente</button>
+                </div>
+                <select id="difficulty">
+                    <option value="easy">Fácil</option>
+                    <option value="hard">Difícil</option>
+                </select>
+            </div>
+                
+            <div id="game">
+                <div class="card" data-value="A">
+                    <div class="back-face"></div>
+                    <div class="front-face"><img src="images/Kratos.png" alt="" width="100px" height="150px"></div>
+                </div>
+                <div class="card" data-value="A">
+                    <div class="back-face"></div>
+                    <div class="front-face"><img src="images/Kratos.png" alt="" width="100px" height="150px"></div>
+                </div>
+                <div class="card" data-value="B">
+                    <div class="back-face"></div>
+                    <div class="front-face">B</div>
+                </div>
+                <div class="card" data-value="B">
+                    <div class="back-face"></div>
+                    <div class="front-face">B</div>
+                </div>
+                <div class="card" data-value="C">
+                    <div class="back-face"></div>
+                    <div class="front-face">C</div>
+                </div>
+                <div class="card" data-value="C">
+                    <div class="back-face"></div>
+                    <div class="front-face">C</div>
+                </div>
+                <div class="card" data-value="D">
+                    <div class="back-face"></div>
+                    <div class="front-face">D</div>
+                </div>
+                <div class="card" data-value="D">
+                    <div class="back-face"></div>
+                    <div class="front-face">D</div>
+                </div>
+                <div class="card" data-value="E">
+                    <div class="back-face"></div>
+                    <div class="front-face">E</div>
+                </div>
+                <div class="card" data-value="E">
+                    <div class="back-face"></div>
+                    <div class="front-face">E</div>
+                </div>
+                <div class="card" data-value="F">
+                    <div class="back-face"></div>
+                    <div class="front-face">F</div>
+                </div>
+                <div class="card" data-value="F">
+                    <div class="back-face"></div>
+                    <div class="front-face">F</div>
+                </div>
+                <div class="card" data-value="G">
+                    <div class="back-face"></div>
+                    <div class="front-face">G</div>
+                </div>
+                <div class="card" data-value="G">
+                    <div class="back-face"></div>
+                    <div class="front-face">G</div>
+                </div>
+                <div class="card" data-value="H">
+                    <div class="back-face"></div>
+                    <div class="front-face">H</div>
+                </div>
+                <div class="card" data-value="H">
+                    <div class="back-face"></div>
+                    <div class="front-face">H</div>
+                </div>
+                <div class="card" data-value="I">
+                    <div class="back-face"></div>
+                    <div class="front-face">I</div>
+                </div>
+                <div class="card" data-value="I">
+                    <div class="back-face"></div>
+                    <div class="front-face">I</div>
+                </div>
+                <div class="card" data-value="J">
+                    <div class="back-face"></div>
+                    <div class="front-face">J</div>
+                </div>
+                <div class="card" data-value="J">
+                    <div class="back-face"></div>
+                    <div class="front-face">J</div>
+                </div>
+                <div class="card" data-value="K">
+                    <div class="back-face"></div>
+                    <div class="front-face">K</div>
+                </div>
+                <div class="card" data-value="K">
+                    <div class="back-face"></div>
+                    <div class="front-face">K</div>
+                </div>
+                <div class="card" data-value="L">
+                    <div class="back-face"></div>
+                    <div class="front-face">L</div>
+                </div>
+                <div class="card" data-value="L">
+                    <div class="back-face"></div>
+                    <div class="front-face">L</div>
                 </div>
             </div>
         </div>
@@ -30,5 +135,6 @@
     <footer>
 
     </footer>
+    <script src="js/script.js"></script> 
 </body>
 </html>
