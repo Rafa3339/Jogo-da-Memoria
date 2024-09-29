@@ -1,34 +1,60 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const board = document.getElementById('game'); // Certifique-se de que o ID está correto
+    const board = document.getElementById('game');
     const restartBtn = document.getElementById('restart');
-    const difficultySelect = document.getElementById('difficulty');
-    const scoreDisplay = document.getElementById('score');
+    const timerDisplay = document.getElementById('timer');
+    const difficulty = document.getElementById('difficulty');
+    const rankingList = document.getElementById('ranking-list');
     let flippedCards = [];
-    let score = 0;
+    let startTime;
+    let timerInterval;
     let playerName = prompt('Digite seu nome:') || 'Jogador';
-    let matchCount = 0; // Contador de acertos
+    let matchCount = 0;
+    let reshuffleCounter = 0;
     document.getElementById('player-name').textContent = playerName;
 
+    // Função para formatar o tempo como MM:SS
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes < 10 ? '0' : ''}${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    // Função para iniciar o cronômetro
+    function startTimer() {
+        startTime = Date.now();
+        timerInterval = setInterval(() => {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+            timerDisplay.textContent = formatTime(elapsedTime);
+        }, 1000);
+    }
+
+    // Função para parar o cronômetro
+    function stopTimer() {
+        clearInterval(timerInterval);
+        const totalTime = Math.floor((Date.now() - startTime) / 1000);
+        return totalTime;
+    }
+
     function setupGame() {
-        // Embaralha as cartas existentes
         const cards = Array.from(document.querySelectorAll('.card'));
         cards.forEach(card => {
-            card.classList.remove('flipped'); // Reseta o estado das cartas
+            card.classList.remove('flipped');
         });
 
-        // Embaralha as cartas
         const shuffledCards = cards.sort(() => Math.random() - 0.5);
-        board.innerHTML = ''; // Limpa o tabuleiro
-        shuffledCards.forEach(card => board.appendChild(card)); // Adiciona as cartas embaralhadas de volta ao tabuleiro
+        board.innerHTML = '';
+        shuffledCards.forEach(card => board.appendChild(card));
 
-        score = 0;
-        scoreDisplay.textContent = score;
-        matchCount = 0; // Reseta o contador de acertos
+        matchCount = 0;
+        reshuffleCounter = 0;
+        timerDisplay.textContent = "00:00";
+        clearInterval(timerInterval);
+        startTimer(); // Inicia o cronômetro ao começar o jogo
     }
 
     function flipCard() {
         if (flippedCards.length < 2 && !this.classList.contains('flipped')) {
-            this.classList.add('flipped'); // Adiciona a classe para animar a carta
+            this.classList.add('flipped');
             flippedCards.push(this);
 
             if (flippedCards.length === 2) {
@@ -42,14 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (first.dataset.value === second.dataset.value) {
             flippedCards = [];
-            score += 10;
-            scoreDisplay.textContent = score;
-            matchCount++; // Incrementa o contador de acertos
+            matchCount++;
+            reshuffleCounter++;
+
             checkWin();
 
-            // Verifica se atingiu 5 acertos
-            if (matchCount % 5 === 0) {
+            if (reshuffleCounter === 2) {
                 reshuffleCards();
+                reshuffleCounter = 0;
             }
         } else {
             setTimeout(() => {
@@ -62,52 +88,82 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkWin() {
         if (document.querySelectorAll('.card.flipped').length === document.querySelectorAll('.card').length) {
-            alert(`Parabéns, ${playerName}! Você ganhou com ${score} pontos.`);
-            saveScore(playerName, score);
+            const timeSpent = stopTimer(); // Para o cronômetro e retorna o tempo total
+            alert(`Parabéns, ${playerName}! Você completou o jogo em ${formatTime(timeSpent)}.`);
+            saveScore(playerName, timeSpent); // Salva o tempo no ranking
+            displayRanking(); // Exibe o ranking atualizado
         }
     }
 
-    function saveScore(player, score) {
+    function saveScore(player, time) {
         const scores = JSON.parse(localStorage.getItem('ranking')) || [];
-        scores.push({ player, score });
-        localStorage.setItem('ranking', JSON.stringify(scores));
+        scores.push({ player, time });
+        // Ordena as pontuações pelo menor tempo (ascendente)
+        scores.sort((a, b) => a.time - b.time);
+        // Mantém apenas os 5 melhores tempos
+        localStorage.setItem('ranking', JSON.stringify(scores.slice(0, 5)));
+    }
+
+    function displayRanking() {
+        const scores = JSON.parse(localStorage.getItem('ranking')) || [];
+        rankingList.innerHTML = ''; // Limpa o ranking anterior
+
+        // Exibe os top 5 jogadores com menor tempo
+        scores.forEach((score, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${index + 1}. ${score.player} - Tempo: ${formatTime(score.time)}`;
+            rankingList.appendChild(listItem);
+        });
     }
 
     function reshuffleCards() {
-        // Seleciona todas as cartas que ainda não foram acertadas (não estão viradas)
         const unflippedCards = Array.from(document.querySelectorAll('.card:not(.flipped)'));
-        
-        // Verifica se há pelo menos 6 cartas não acertadas para reembaralhar
-        if (unflippedCards.length >= 6) {
-            // Seleciona 6 cartas aleatórias
-            const selectedCards = [];
-            while (selectedCards.length < 6) {
-                const randomIndex = Math.floor(Math.random() * unflippedCards.length);
-                selectedCards.push(unflippedCards.splice(randomIndex, 1)[0]);
-            }
+        const allCards = Array.from(document.querySelectorAll('.card'));
 
-            // Adiciona o destaque amarelo
-            selectedCards.forEach(card => card.classList.add('highlight'));
+        if (unflippedCards.length > 1) {
+            unflippedCards.forEach(card => {
+                const backFace = card.querySelector('.back-face');
+                if (backFace) {
+                    backFace.classList.add('highlight');
+                }
+            });
 
-            // Remove o destaque amarelo após 1 segundo
+            const shuffledUnflippedCards = unflippedCards.sort(() => Math.random() - 0.5);
+
+            const newBoard = [];
+            allCards.forEach(card => {
+                if (card.classList.contains('flipped')) {
+                    newBoard.push(card);
+                } else {
+                    newBoard.push(shuffledUnflippedCards.shift());
+                }
+            });
+
+            board.innerHTML = '';
+            newBoard.forEach(card => board.appendChild(card));
+
             setTimeout(() => {
-                selectedCards.forEach(card => card.classList.remove('highlight'));
-                // Embaralha as 6 cartas selecionadas
-                const shuffledSelectedCards = selectedCards.sort(() => Math.random() - 0.5);
-
-                // Reposiciona as cartas embaralhadas no tabuleiro
-                shuffledSelectedCards.forEach(card => board.appendChild(card));
-            }, 1000);
+                const highlighted = document.querySelectorAll('.highlight');
+                highlighted.forEach(highlight => {
+                    highlight.classList.remove('highlight');
+                });
+            }, 1200);
         }
     }
 
-    // Adiciona evento de clique nas cartas
     const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-        card.addEventListener('click', flipCard);
-    });
+    cards.forEach(card => card.addEventListener('click', flipCard));
 
     restartBtn.addEventListener('click', setupGame);
 
-    setupGame(); // Inicializa o jogo
+    // Exibe o ranking ao carregar a página
+    displayRanking();
+    setupGame();
+
+    document.getElementById('clear-storage').addEventListener('click', () => {
+        localStorage.removeItem('ranking'); // Para apagar um item específico
+        // localStorage.clear(); // Para apagar todos os itens
+        alert('Ranking limpo!');
+    });
+    
 });

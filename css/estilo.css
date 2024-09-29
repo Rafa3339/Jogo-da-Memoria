@@ -1,43 +1,104 @@
-/* Estilo do corpo */
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f0f0f0;
+* {
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Estilo do cabeçalho */
 header {
     display: flex;
-    flex-direction: column;
+    height: 90px;
+    background-color: black;
+    justify-content: space-around;
     align-items: center;
-    margin-bottom: 20px;
+    padding: 10px;
 }
 
-/* Estilo do tabuleiro */
-#game-board {
+.navegacao {
+    display: flex;
+    height: 60px;
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    align-items: center;
+}
+
+.menu li {
+    width: 190px;
+    margin: 0 20px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.menu li a{
+    text-decoration: none;
+    color: white;
+}
+.menu li a:hover{
+    color: aquamarine;
+}
+
+main {
+    display: flex;
+    width: 100%;
+    min-height: 130vh;
+    justify-content: center;
+    color: white;
+    background-color: rgb(223, 223, 223);
+}
+
+.content {
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: red;
+    width: 90%;
+    min-height: 80vh;
+    border-radius: 10px;
+}
+
+.content h2{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    height: 30px;
+}
+
+.menugame{
+    display: flex;
+    justify-content: center;
+    width: 75%;
+    height: 50px;
+}
+
+#game{
     display: grid;
+    width: 80%;
+    height: 80vh;
+    padding: 0 12px;
     gap: 10px;
-    margin-top: 20px;
     grid-template-columns: repeat(8, 1fr); /* Define 4 colunas */
+    background-color: blue;
+    border-radius: 25px;
+    align-items: center;
 }
 
-/* Estilo da carta */
-/* Estilo da carta */
 .card {
     width: 100px;
     height: 150px;
     position: relative;
     perspective: 1000px; /* Define a perspectiva para 3D */
     cursor: pointer; /* Muda o cursor para indicar que é clicável */
-    border: 2px solid #aaa; /* Borda para as cartas */
+    border-radius: 10px;
+    border: 2px solid darkblue; /* Borda para as cartas */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra para dar profundidade */
 }
 
-/* Estilos para as faces da carta */
 .card .front-face, .card .back-face {
     position: absolute;
     width: 100%;
@@ -50,10 +111,9 @@ header {
     font-size: 2rem; /* Tamanho da fonte */
     transition: transform 0.6s; /* Duração da animação */
     border: 1px solid #ddd; /* Borda das cartas */
+    border-radius: 10px;
 }
 
-/* Estilo da frente da carta (visível inicialmente) */
-/* Estilo da frente da carta (inicialmente oculta) */
 .front-face {
     background-color: #fff; /* Cor de fundo da frente */
     color: black; /* Cor do texto da frente */
@@ -61,15 +121,13 @@ header {
     opacity: 1; /* Garante que a frente não seja transparente */
 }
 
-/* Estilo do verso da carta (visível inicialmente) */
 .back-face {
     background-color: #ccc; /* Cor de fundo do verso */
-    color: transparent; /* Texto oculto no verso */
+    color: black; /* Texto oculto no verso */
     transform: rotateY(0deg); /* Mostra o verso inicialmente */
     opacity: 1; /* Garante que o verso não seja transparente */
 }
 
-/* Animação de virar as cartas */
 .card.flipped .front-face {
     transform: rotateY(0deg); /* Mostra a frente da carta quando virada */
 }
@@ -78,16 +136,22 @@ header {
     transform: rotateY(180deg); /* Esconde o verso da carta quando virada */
 }
 
-
-/* Estilo do botão de reiniciar */
-#restart {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+img {
+    border-radius: 12px;
+}
+.card .highlight {
+    background-color: yellow;
 }
 
-/* Estilo do seletor de dificuldade */
-#difficulty {
-    margin-top: 10px;
+
+
+
+footer {
+    display: flex;
+    justify-content: space-around;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
 }
