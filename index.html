@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Memory Game</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-     <div class="navegacao">
+        <div class="navegacao">
             <nav>
                 <ul class="menu">
                     <li><a href="index.html">Página Inicial</a></li>
@@ -18,123 +18,132 @@
     </header>
 
     <main>
-        <div class="content"><h2>Memory Game</h2>
+        <div class="content">
+            <h2>Memory Game</h2>
             <div class="menugame">
                 <div id="scoreboard">
                     <span>Jogador: <span id="player-name"></span></span>
-                    <span>Pontuação: <span id="score">0</span></span>
+                    <span>Tempo: <span id="timer">00:00</span></span> <!-- Timer exibido -->
                     <button id="restart">Jogar Novamente</button>
-                </div>
+                </div>                
                 <select id="difficulty">
                     <option value="easy">Fácil</option>
                     <option value="hard">Difícil</option>
                 </select>
+
+                <button id="clear-storage">Limpar Ranking</button>
+
             </div>
-                
-            <div id="game">
-                <div class="card" data-value="A">
-                    <div class="back-face">A</div>
-                    <div class="front-face"><img src="images/Kratos.png" alt="" width="100px" height="150px"></div>
-                </div>
-                <div class="card" data-value="A">
-                    <div class="back-face">A</div>
-                    <div class="front-face"><img src="images/Kratos.png" alt="" width="100px" height="150px"></div>
-                </div>
-                <div class="card" data-value="B">
-                    <div class="back-face">B</div>
-                    <div class="front-face"><img src="images/geralt.png" alt="" width="100px" height="150px"></div>
-                </div>
-                <div class="card" data-value="B">
-                    <div class="back-face">B</div>
-                    <div class="front-face"><img src="images/geralt.png" alt="" width="100px" height="150px"></div>
-                </div>
-                <div class="card" data-value="C">
-                    <div class="back-face">C</div>
-                    <div class="front-face">C</div>
-                </div>
-                <div class="card" data-value="C">
-                    <div class="back-face">C</div>
-                    <div class="front-face">C</div>
-                </div>
-                <div class="card" data-value="D">
-                    <div class="back-face">D</div>
-                    <div class="front-face">D</div>
-                </div>
-                <div class="card" data-value="D">
-                    <div class="back-face">D</div>
-                    <div class="front-face">D</div>
-                </div>
-                <div class="card" data-value="E">
-                    <div class="back-face">E</div>
-                    <div class="front-face">E</div>
-                </div>
-                <div class="card" data-value="E">
-                    <div class="back-face">E</div>
-                    <div class="front-face">E</div>
-                </div>
-                <div class="card" data-value="F">
-                    <div class="back-face">F</div>
-                    <div class="front-face">F</div>
-                </div>
-                <div class="card" data-value="F">
-                    <div class="back-face">F</div>
-                    <div class="front-face">F</div>
-                </div>
-                <div class="card" data-value="G">
-                    <div class="back-face">G</div>
-                    <div class="front-face">G</div>
-                </div>
-                <div class="card" data-value="G">
-                    <div class="back-face">G</div>
-                    <div class="front-face">G</div>
-                </div>
-                <div class="card" data-value="H">
-                    <div class="back-face">H</div>
-                    <div class="front-face">H</div>
-                </div>
-                <div class="card" data-value="H">
-                    <div class="back-face">H</div>
-                    <div class="front-face">H</div>
-                </div>
-                <div class="card" data-value="I">
-                    <div class="back-face">I</div>
-                    <div class="front-face">I</div>
-                </div>
-                <div class="card" data-value="I">
-                    <div class="back-face">I</div>
-                    <div class="front-face">I</div>
-                </div>
-                <div class="card" data-value="J">
-                    <div class="back-face">J</div>
-                    <div class="front-face">J</div>
-                </div>
-                <div class="card" data-value="J">
-                    <div class="back-face">J</div>
-                    <div class="front-face">J</div>
-                </div>
-                <div class="card" data-value="K">
-                    <div class="back-face">K</div>
-                    <div class="front-face">K</div>
-                </div>
-                <div class="card" data-value="K">
-                    <div class="back-face">K</div>
-                    <div class="front-face">K</div>
-                </div>
-                <div class="card" data-value="L">
-                    <div class="back-face">L</div>
-                    <div class="front-face">L</div>
-                </div>
-                <div class="card" data-value="L">
-                    <div class="back-face">L</div>
-                    <div class="front-face">L</div>
+            
+            <!-- Seção do ranking -->
+            <div id="ranking">
+                <h3>Ranking de Maiores Pontuadores</h3>
+                <ul id="ranking-list">
+                    <!-- A lista dos maiores pontuadores será exibida aqui -->
+                </ul>
+            </div>
+            
+                <div id="game">
+                    <div class="card" data-value="A">
+                        <div class="back-face">A</div>
+                        <div class="front-face"><img src="images/Kratos.png" alt="" width="100px" height="150px"></div>
+                    </div>
+                    <div class="card" data-value="A">
+                        <div class="back-face">A</div>
+                        <div class="front-face"><img src="images/Kratos.png" alt="" width="100px" height="150px"></div>
+                    </div>
+                    <div class="card" data-value="B">
+                        <div class="back-face">B</div>
+                        <div class="front-face"><img src="images/geralt.png" alt="" width="100px" height="150px"></div>
+                    </div>
+                    <div class="card" data-value="B">
+                        <div class="back-face">B</div>
+                        <div class="front-face"><img src="images/geralt.png" alt="" width="100px" height="150px"></div>
+                    </div>
+                    <div class="card" data-value="C">
+                        <div class="back-face">C</div>
+                        <div class="front-face">C</div>
+                    </div>
+                    <div class="card" data-value="C">
+                        <div class="back-face">C</div>
+                        <div class="front-face">C</div>
+                    </div>
+                    <div class="card" data-value="D">
+                        <div class="back-face">D</div>
+                        <div class="front-face">D</div>
+                    </div>
+                    <div class="card" data-value="D">
+                        <div class="back-face">D</div>
+                        <div class="front-face">D</div>
+                    </div>
+                    <div class="card" data-value="E">
+                        <div class="back-face">E</div>
+                        <div class="front-face">E</div>
+                    </div>
+                    <div class="card" data-value="E">
+                        <div class="back-face">E</div>
+                        <div class="front-face">E</div>
+                    </div>
+                    <div class="card" data-value="F">
+                        <div class="back-face">F</div>
+                        <div class="front-face">F</div>
+                    </div>
+                    <div class="card" data-value="F">
+                        <div class="back-face">F</div>
+                        <div class="front-face">F</div>
+                    </div>
+                    <div class="card" data-value="G">
+                        <div class="back-face">G</div>
+                        <div class="front-face">G</div>
+                    </div>
+                    <div class="card" data-value="G">
+                        <div class="back-face">G</div>
+                        <div class="front-face">G</div>
+                    </div>
+                    <div class="card" data-value="H">
+                        <div class="back-face">H</div>
+                        <div class="front-face">H</div>
+                    </div>
+                    <div class="card" data-value="H">
+                        <div class="back-face">H</div>
+                        <div class="front-face">H</div>
+                    </div>
+                    <div class="card" data-value="I">
+                        <div class="back-face">I</div>
+                        <div class="front-face">I</div>
+                    </div>
+                    <div class="card" data-value="I">
+                        <div class="back-face">I</div>
+                        <div class="front-face">I</div>
+                    </div>
+                    <div class="card" data-value="J">
+                        <div class="back-face">J</div>
+                        <div class="front-face">J</div>
+                    </div>
+                    <div class="card" data-value="J">
+                        <div class="back-face">J</div>
+                        <div class="front-face">J</div>
+                    </div>
+                    <div class="card" data-value="K">
+                        <div class="back-face">K</div>
+                        <div class="front-face">K</div>
+                    </div>
+                    <div class="card" data-value="K">
+                        <div class="back-face">K</div>
+                        <div class="front-face">K</div>
+                    </div>
+                    <div class="card" data-value="L">
+                        <div class="back-face">L</div>
+                        <div class="front-face">L</div>
+                    </div>
+                    <div class="card" data-value="L">
+                        <div class="back-face">L</div>
+                        <div class="front-face">L</div>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
-
-    <footer>
-
-    </footer>
-    <script src="js/script.js"></script> 
+    <script src="js/script.js"></script>
 </body>
 </html>
