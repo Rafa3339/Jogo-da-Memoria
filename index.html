@@ -19,22 +19,31 @@
 
     <main>
         <div class="content">
-            <h2>Memory Game</h2>
-            <div id="menugame" class="flex">
-                <div id="scoreboard">
-                    <span>Jogador: <span id="player-name"></span></span>
-                    <span>Tempo: <span id="timer">00:00</span></span> <!-- Timer exibido -->
-                    <button id="restart">Jogar Novamente</button>
-                </div>                
-                <div id="difficulty">
-                    <label><input type="radio" name="difficulty" value="easy" checked> Fácil</label>
-                    <label><input type="radio" name="difficulty" value="hard"> Difícil</label>
-                </div>                
-
-                <button id="clear-storage">Limpar Ranking</button>
+            <h1>Jogo da Memória</h1>
+        <div class="area">
+            <div id="menu-inicial">
+                <h1>Jogo da Memória</h1>
+                <div class="area-nome">
+                    <label for="name"><input type="text" id="name" name="name" placeholder="Digite seu nome"></label>
+                </div>
+                <div class="area-dificuldade">
+                    <label>Dificuldade:</label>
+                    <div>
+                        <input type="radio" id="easy" name="difficulty" value="easy" checked>
+                        <label for="easy">Fácil</label>
+                        <input type="radio" id="hard" name="difficulty" value="hard">
+                        <label for="hard">Difícil</label>
+                    </div>
+                </div>
                 <button id="iniciar">Iniciar</button>
             </div>
-            
+            <div id="menu-final" class="display-none">
+                <button id="restart">Jogar Novamente</button>
+                <button id="clear-storage">Limpar Ranking</button>
+                <div id="scoreboard">
+                    <span>Tempo: <span id="timer">00:00</span></span> <!-- Timer exibido -->
+                </div>
+            </div> 
             <!-- Seção do ranking -->
             <div id="ranking" class="display-none">
                 <h3>Ranking de Maiores Pontuasdores</h3>
@@ -141,6 +150,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </main>
     <script src="js/script.js"></script>

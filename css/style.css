@@ -91,21 +91,38 @@ main {
 .area {
     height: 80%;
     width: 80%;
+    display: flex;
     background-color: blue;
     border-radius: 25px;
     padding: 10px;
 }   
 
-#menu-iniciar {
-    display: flex;
+
+#menu-inicial {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    text-align: center;
     background-color: #5a4c8b; /* Fundo do conteúdo roxo */
     padding: 40px;
     border-radius: 15px;
     width: 400px;
     height: 400px;
+    text-align: center;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
+}
+
+#menu-final{
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    background-color: #5a4c8b; /* Fundo do conteúdo roxo */
+    padding: 40px;
+    border-radius: 15px;
+    width: 400px;
+    height: 400px;
+    text-align: center;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
 }
 
@@ -167,8 +184,8 @@ button:active {
 }
 
 #game {
-    width: 80%;
-    height: 80vh;
+    width: 100%;
+    height: 100%;
     padding: 0 12px;
     gap: 10px;
     grid-template-columns: repeat(8, 1fr); /* Define 8 colunas */

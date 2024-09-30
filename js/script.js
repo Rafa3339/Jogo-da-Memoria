@@ -1,16 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     const board = document.getElementById('game');
-    const restartBtn = document.getElementById('restart');
     const timerDisplay = document.getElementById('timer');
     const rankingList = document.getElementById('ranking-list');
     let flippedCards = [];
     let startTime;
     let timerInterval;
     var difficulty;
-    let playerName = prompt('Digite seu nome:') || 'Jogador';
+    let playerName;
     let matchCount = 0;
     let reshuffleCounter = 0;
-    document.getElementById('player-name').textContent = playerName;
 
     // Função para formatar o tempo como MM:SS
     function formatTime(seconds) {
@@ -92,8 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(`Parabéns, ${playerName}! Você completou o jogo em ${formatTime(timeSpent)}.`);
             saveScore(playerName, timeSpent); // Salva o tempo no ranking
             displayRanking(); // Exibe o ranking atualizado
-            document.getElementById('menugame').classList.remove('display-none');
-            document.getElementById('menugame').classList.add('display-flex');
+            document.getElementById('menu-final').classList.remove('display-none');
+            document.getElementById('menu-final').classList.add('display-flex');
             document.getElementById('game').classList.remove('display-grid');
             document.getElementById('game').classList.add('display-none');
             document.getElementById('ranking').classList.remove('display-none');
@@ -160,16 +158,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => card.addEventListener('click', flipCard));
 
-    restartBtn.addEventListener('click', setupGame);
-
+    document.getElementById('restart').addEventListener('click', () =>{
+        document.getElementById('menu-final').classList.remove('display-flex');
+        document.getElementById('menu-final').classList.add('display-none');
+        document.getElementById('game').classList.remove('display-none');
+        document.getElementById('game').classList.add('display-grid');
+        document.getElementById('ranking').classList.remove('display-flex');
+        document.getElementById('ranking').classList.add('display-none');
+        setupGame();
+    });
     // Exibe o ranking ao carregar a página
     displayRanking();
     
 
     document.getElementById('iniciar').addEventListener('click', () => {
         difficulty = document.querySelector('input[name="difficulty"]:checked').value;
-        document.getElementById('menugame').classList.remove('display-flex');
-        document.getElementById('menugame').classList.add('display-none');
+        playerName = document.getElementById('name').value;
+        if (playerName.trim() === '') {
+            alert('Por favor, digite seu nome!');
+            return; // Não inicia o jogo se o nome não estiver preenchido
+        }
+        
+        document.getElementById('menu-inicial').classList.remove('display-flex');
+        document.getElementById('menu-inicial').classList.add('display-none');
         document.getElementById('game').classList.remove('display-none');
         document.getElementById('game').classList.add('display-grid');
         
