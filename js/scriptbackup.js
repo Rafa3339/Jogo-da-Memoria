@@ -1,29 +1,53 @@
 document.addEventListener('DOMContentLoaded', () => {
     const board = document.getElementById('game');
-    const restartBtn = document.getElementById('restart');
-    const scoreDisplay = document.getElementById('score');
-    const difficulty = document.getElementById('difficulty');
+    const timerDisplay = document.getElementById('timer');
+    const rankingList = document.getElementById('ranking-list');
     let flippedCards = [];
-    let score = 0;
-    let playerName = prompt('Digite seu nome:') || 'Jogador';
-    let matchCount = 0; // Contador de acertos
-    let reshuffleCounter = 0; // Contador para controlar o reembaralhamento
-    document.getElementById('player-name').textContent = playerName;
+    let startTime;
+    let timerInterval;
+    var difficulty;
+    let playerName;
+    let matchCount = 0;
+    let reshuffleCounter = 0;
+
+    // Função para formatar o tempo como MM:SS
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes < 10 ? '0' : ''}${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    // Função para iniciar o cronômetro
+    function startTimer() {
+        startTime = Date.now();
+        timerInterval = setInterval(() => {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+            timerDisplay.textContent = formatTime(elapsedTime);
+        }, 1000);
+    }
+
+    // Função para parar o cronômetro
+    function stopTimer() {
+        clearInterval(timerInterval);
+        const totalTime = Math.floor((Date.now() - startTime) / 1000);
+        return totalTime;
+    }
 
     function setupGame() {
         const cards = Array.from(document.querySelectorAll('.card'));
         cards.forEach(card => {
-            card.classList.remove('flipped'); // Reseta o estado das cartas
+            card.classList.remove('flipped');
         });
 
         const shuffledCards = cards.sort(() => Math.random() - 0.5);
         board.innerHTML = '';
         shuffledCards.forEach(card => board.appendChild(card));
 
-        score = 0;
-        scoreDisplay.textContent = score;
         matchCount = 0;
         reshuffleCounter = 0;
+        timerDisplay.textContent = "00:00";
+        clearInterval(timerInterval);
+        startTimer(); // Inicia o cronômetro ao começar o jogo
     }
 
     function flipCard() {
@@ -42,17 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (first.dataset.value === second.dataset.value) {
             flippedCards = [];
-            score += 10;
-            scoreDisplay.textContent = score;
             matchCount++;
             reshuffleCounter++;
 
             checkWin();
 
-            // A cada 2 pares corretos, reembaralha as cartas não acertadas
-            if (reshuffleCounter === 2) {
+            if (reshuffleCounter === 2 && difficulty === 'hard') {
                 reshuffleCards();
-                reshuffleCounter = 0; // Reseta o contador de reembaralhamento
+                reshuffleCounter = 0;
             }
         } else {
             setTimeout(() => {
@@ -65,22 +86,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkWin() {
         if (document.querySelectorAll('.card.flipped').length === document.querySelectorAll('.card').length) {
-            alert(`Parabéns, ${playerName}! Você ganhou com ${score} pontos.`);
-            saveScore(playerName, score);
+            const timeSpent = stopTimer(); // Para o cronômetro e retorna o tempo total
+            alert(`Parabéns, ${playerName}! Você completou o jogo em ${formatTime(timeSpent)}.`);
+            saveScore(playerName, timeSpent); // Salva o tempo no ranking
+            displayRanking(); // Exibe o ranking atualizado
+            document.getElementById('menu-final').classList.remove('display-none');
+            document.getElementById('menu-final').classList.add('display-flex');
+            document.getElementById('game').classList.remove('display-grid');
+            document.getElementById('game').classList.add('display-none');
+            document.getElementById('ranking').classList.remove('display-none');
+            document.getElementById('ranking').classList.add('display-flex');
         }
     }
 
-    function saveScore(player, score) {
+    function saveScore(player, time) {
         const scores = JSON.parse(localStorage.getItem('ranking')) || [];
-        scores.push({ player, score });
-        localStorage.setItem('ranking', JSON.stringify(scores));
+        scores.push({ player, time });
+        // Ordena as pontuações pelo menor tempo (ascendente)
+        scores.sort((a, b) => a.time - b.time);
+        // Mantém apenas os 5 melhores tempos
+        localStorage.setItem('ranking', JSON.stringify(scores.slice(0, 5)));
     }
 
-    // Reembaralha apenas as cartas não acertadas sem alterar a posição das cartas viradas
+    function displayRanking() {
+        const scores = JSON.parse(localStorage.getItem('ranking')) || [];
+        rankingList.innerHTML = ''; // Limpa o ranking anterior
+
+        // Exibe os top 5 jogadores com menor tempo
+        scores.forEach((score, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${index + 1}. ${score.player} - Tempo: ${formatTime(score.time)}`;
+            rankingList.appendChild(listItem);
+        });
+    }
+
     function reshuffleCards() {
         const unflippedCards = Array.from(document.querySelectorAll('.card:not(.flipped)'));
         const allCards = Array.from(document.querySelectorAll('.card'));
-    
+
         if (unflippedCards.length > 1) {
             unflippedCards.forEach(card => {
                 const backFace = card.querySelector('.back-face');
@@ -88,9 +131,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     backFace.classList.add('highlight');
                 }
             });
-    
+
             const shuffledUnflippedCards = unflippedCards.sort(() => Math.random() - 0.5);
-    
+
             const newBoard = [];
             allCards.forEach(card => {
                 if (card.classList.contains('flipped')) {
@@ -99,11 +142,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     newBoard.push(shuffledUnflippedCards.shift());
                 }
             });
-    
+
             board.innerHTML = '';
             newBoard.forEach(card => board.appendChild(card));
-    
-            // Remove a classe highlight após 2 segundos
+
             setTimeout(() => {
                 const highlighted = document.querySelectorAll('.highlight');
                 highlighted.forEach(highlight => {
@@ -112,13 +154,45 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1200);
         }
     }
-    
-    
 
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => card.addEventListener('click', flipCard));
 
-    restartBtn.addEventListener('click', setupGame);
+    document.getElementById('restart').addEventListener('click', () =>{
+        document.getElementById('menu-final').classList.remove('display-flex');
+        document.getElementById('menu-final').classList.add('display-none');
+        document.getElementById('game').classList.remove('display-none');
+        document.getElementById('game').classList.add('display-grid');
+        document.getElementById('ranking').classList.remove('display-flex');
+        document.getElementById('ranking').classList.add('display-none');
+        setupGame();
+    });
+    // Exibe o ranking ao carregar a página
+    displayRanking();
+    
 
-    setupGame();
+    document.getElementById('iniciar').addEventListener('click', () => {
+        difficulty = document.querySelector('input[name="difficulty"]:checked').value;
+        playerName = document.getElementById('name').value;
+        if (playerName.trim() === '') {
+            alert('Por favor, digite seu nome!');
+            return; // Não inicia o jogo se o nome não estiver preenchido
+        }
+        
+        document.getElementById('menu-inicial').classList.remove('display-flex');
+        document.getElementById('menu-inicial').classList.add('display-none');
+        document.getElementById('game').classList.remove('display-none');
+        document.getElementById('game').classList.add('display-grid');
+        
+        // Aqui você pode usar a dificuldade para configurar o jogo conforme necessário
+        setupGame(); // Exemplo de função que você já tem
+    });
+    
+
+    document.getElementById('clear-storage').addEventListener('click', () => {
+        localStorage.removeItem('ranking'); // Para apagar um item específico
+        // localStorage.clear(); // Para apagar todos os itens
+        alert('Ranking limpo!');
+    });
+    
 });

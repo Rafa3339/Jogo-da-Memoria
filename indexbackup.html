@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Memory Game</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-     <div class="navegacao">
+        <div class="navegacao">
             <nav>
                 <ul class="menu">
                     <li><a href="index.html">Página Inicial</a></li>
@@ -18,258 +18,141 @@
     </header>
 
     <main>
-        <div class="content"><h2>Memory Game</h2>
-            <div class="menugame">
-                <div id="scoreboard">
-                    <span>Jogador: <span id="player-name"></span></span>
-                    <span>Pontuação: <span id="score">0</span></span>
-                    <button id="restart">Jogar Novamente</button>
+        <div class="content">
+            <h1>Jogo da Memória</h1>
+        <div class="area">
+            <div id="menu-inicial" class="display-flex">
+                <h1>Jogo da Memória</h1>
+                <div class="area-nome">
+                    <label for="name"><input type="text" id="name" name="name" placeholder="Digite seu nome"></label>
                 </div>
-                <select id="difficulty">
-                    <option value="easy">Fácil</option>
-                    <option value="hard">Difícil</option>
-                </select>
+                <div class="area-dificuldade">
+                    <label>Dificuldade:</label>
+                    <div>
+                        <input type="radio" id="easy" name="difficulty" value="easy" checked>
+                        <label for="easy">Fácil</label>
+                        <input type="radio" id="hard" name="difficulty" value="hard">
+                        <label for="hard">Difícil</label>
+                    </div>
+                </div>
+                <button id="iniciar">Iniciar</button>
             </div>
-                
-            <div id="game">
-                <div class="card" data-value="A">
-                    <div class="back-face">A</div>
-                    <div class="front-face"><img src="images/Kratos.png" alt="" width="100px" height="150px"></div>
+            <div id="menu-final" class="display-none">
+                <button id="restart">Jogar Novamente</button>
+                <button id="clear-storage">Limpar Ranking</button>
+                <div id="scoreboard">
+                    <span>Tempo: <span id="timer">00:00</span></span> <!-- Timer exibido -->
                 </div>
-                <div class="card" data-value="A">
-                    <div class="back-face">A</div>
-                    <div class="front-face"><img src="images/Kratos.png" alt="" width="100px" height="150px"></div>
-                </div>
-                <div class="card" data-value="B">
-                    <div class="back-face">B</div>
-                    <div class="front-face"><img src="images/geralt.png" alt="" width="100px" height="150px"></div>
-                </div>
-                <div class="card" data-value="B">
-                    <div class="back-face">B</div>
-                    <div class="front-face"><img src="images/geralt.png" alt="" width="100px" height="150px"></div>
-                </div>
-                <div class="card" data-value="C">
-                    <div class="back-face">C</div>
-                    <div class="front-face">C</div>
-                </div>
-                <div class="card" data-value="C">
-                    <div class="back-face">C</div>
-                    <div class="front-face">C</div>
-                </div>
-                <div class="card" data-value="D">
-                    <div class="back-face">D</div>
-                    <div class="front-face">D</div>
-                </div>
-                <div class="card" data-value="D">
-                    <div class="back-face">D</div>
-                    <div class="front-face">D</div>
-                </div>
-                <div class="card" data-value="E">
-                    <div class="back-face">E</div>
-                    <div class="front-face">E</div>
-                </div>
-                <div class="card" data-value="E">
-                    <div class="back-face">E</div>
-                    <div class="front-face">E</div>
-                </div>
-                <div class="card" data-value="F">
-                    <div class="back-face">F</div>
-                    <div class="front-face">F</div>
-                </div>
-                <div class="card" data-value="F">
-                    <div class="back-face">F</div>
-                    <div class="front-face">F</div>
-                </div>
-                <div class="card" data-value="G">
-                    <div class="back-face">G</div>
-                    <div class="front-face">G</div>
-                </div>
-                <div class="card" data-value="G">
-                    <div class="back-face">G</div>
-                    <div class="front-face">G</div>
-                </div>
-                <div class="card" data-value="H">
-                    <div class="back-face">H</div>
-                    <div class="front-face">H</div>
-                </div>
-                <div class="card" data-value="H">
-                    <div class="back-face">H</div>
-                    <div class="front-face">H</div>
-                </div>
-                <div class="card" data-value="I">
-                    <div class="back-face">I</div>
-                    <div class="front-face">I</div>
-                </div>
-                <div class="card" data-value="I">
-                    <div class="back-face">I</div>
-                    <div class="front-face">I</div>
-                </div>
-                <div class="card" data-value="J">
-                    <div class="back-face">J</div>
-                    <div class="front-face">J</div>
-                </div>
-                <div class="card" data-value="J">
-                    <div class="back-face">J</div>
-                    <div class="front-face">J</div>
-                </div>
-                <div class="card" data-value="K">
-                    <div class="back-face">K</div>
-                    <div class="front-face">K</div>
-                </div>
-                <div class="card" data-value="K">
-                    <div class="back-face">K</div>
-                    <div class="front-face">K</div>
-                </div>
-                <div class="card" data-value="L">
-                    <div class="back-face">L</div>
-                    <div class="front-face">L</div>
-                </div>
-                <div class="card" data-value="L">
-                    <div class="back-face">L</div>
-                    <div class="front-face">L</div>
+            </div> 
+            <!-- Seção do ranking -->
+            <div id="ranking" class="display-none">
+                <h3>Ranking de Maiores Pontuasdores</h3>
+                <ul id="ranking-list">
+                </ul>
+            </div>
+            
+                <div id="game" class="display-none">
+                    <div class="card" data-value="A">
+                        <div class="back-face">A</div>
+                        <div class="front-face"><img src="images/Kratos.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="A">
+                        <div class="back-face">A</div>
+                        <div class="front-face"><img src="images/Kratos.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="B">
+                        <div class="back-face">B</div>
+                        <div class="front-face"><img src="images/geralt.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="B">
+                        <div class="back-face">B</div>
+                        <div class="front-face"><img src="images/geralt.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="C">
+                        <div class="back-face">C</div>
+                        <div class="front-face"><img src="images/mario.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="C">
+                        <div class="back-face">C</div>
+                        <div class="front-face"><img src="images/mario.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="D">
+                        <div class="back-face">D</div>
+                        <div class="front-face"><img src="images/RDR2.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="D">
+                        <div class="back-face">D</div>
+                        <div class="front-face"><img src="images/RDR2.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="E">
+                        <div class="back-face">E</div>
+                        <div class="front-face"><img src="images/Sonic.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="E">
+                        <div class="back-face">E</div>
+                        <div class="front-face"><img src="images/Sonic.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="F">
+                        <div class="back-face">F</div>
+                        <div class="front-face"><img src="images/donkeykong.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="F">
+                        <div class="back-face">F</div>
+                        <div class="front-face"><img src="images/donkeykong.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="G">
+                        <div class="back-face">G</div>
+                        <div class="front-face"><img src="images/crash.png" alt="" width="100px" height="150px"></div>
+                    </div>
+                    <div class="card" data-value="G">
+                        <div class="back-face">G</div>
+                        <div class="front-face"><img src="images/crash.png" alt="" width="100px" height="150px"></div>
+                    </div>  
+                    <div class="card" data-value="H">
+                        <div class="back-face">H</div>
+                        <div class="front-face"><img src="images/ryu.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="H">
+                        <div class="back-face">H</div>
+                        <div class="front-face"><img src="images/ryu.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="I">
+                        <div class="back-face">I</div>
+                        <div class="front-face"><img src="images/Scorpion.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="I">
+                        <div class="back-face">I</div>
+                        <div class="front-face"><img src="images/Scorpion.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="J">
+                        <div class="back-face">J</div>
+                        <div class="front-face"><img src="images/laracroft.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="J">
+                        <div class="back-face">J</div>
+                        <div class="front-face"><img src="images/laracroft.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="K">
+                        <div class="back-face">K</div>
+                        <div class="front-face"><img src="images/aloy.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="K">
+                        <div class="back-face">K</div>
+                        <div class="front-face"><img src="images/aloy.png" alt="" width="95px" height="144px"></div>
+                    </div>
+                    <div class="card" data-value="L">
+                        <div class="back-face">L</div>
+                        <div class="front-face"><img src="images/Kassandra.png" alt="" width="100px" height="150px"></div>
+                    </div>
+                    <div class="card" data-value="L">
+                        <div class="back-face">L</div>
+                        <div class="front-face"><img src="images/Kassandra.png" alt="" width="100px" height="150px"></div>
+                    </div>
                 </div>
             </div>
         </div>
+        </div>
     </main>
-
-    <footer>
-
-    </footer>
-    <script src="js/script.js"></script> 
+    <script src="js/script.js"></script>
 </body>
 </html>
-
-
-
-
-<!---
-<div id="game">
-    <div class="card" data-value="A">
-        <div class="back-face">A</div>
-        <div class="front-face"><img src="images/Kratos.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="A">
-        <div class="back-face">A</div>
-        <div class="front-face"><img src="images/Kratos.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="B">
-        <div class="back-face">B</div>
-        <div class="front-face"><img src="images/geralt.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="B">
-        <div class="back-face">B</div>
-        <div class="front-face"><img src="images/geralt.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="C">
-        <div class="back-face">C</div>
-        <div class="front-face"><img src="images/mario.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="C">
-        <div class="back-face">C</div>
-        <div class="front-face"><img src="images/mario.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="D">
-        <div class="back-face">D</div>
-        <div class="front-face"><img src="images/RDR2.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="D">
-        <div class="back-face">D</div>
-        <div class="front-face"><img src="images/RDR2.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="E">
-        <div class="back-face">E</div>
-        <div class="front-face"><img src="images/Sonic.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="E">
-        <div class="back-face">E</div>
-        <div class="front-face"><img src="images/Sonic.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="F">
-        <div class="back-face">F</div>
-        <div class="front-face"><img src="images/donkeykong.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="F">
-        <div class="back-face">F</div>
-        <div class="front-face"><img src="images/donkeykong.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="G">
-        <div class="back-face">G</div>
-        <div class="front-face"><img src="images/crash.png" alt="" width="100px" height="150px"></div>
-    </div>
-    <div class="card" data-value="G">
-        <div class="back-face">G</div>
-        <div class="front-face"><img src="images/crash.png" alt="" width="100px" height="150px"></div>
-    </div>  
-    <div class="card" data-value="H">
-        <div class="back-face">H</div>
-        <div class="front-face"><img src="images/ryu.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="H">
-        <div class="back-face">H</div>
-        <div class="front-face"><img src="images/ryu.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="I">
-        <div class="back-face">I</div>
-        <div class="front-face"><img src="images/Scorpion.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="I">
-        <div class="back-face">I</div>
-        <div class="front-face"><img src="images/Scorpion.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="J">
-        <div class="back-face">J</div>
-        <div class="front-face"><img src="images/laracroft.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="J">
-        <div class="back-face">J</div>
-        <div class="front-face"><img src="images/laracroft.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="K">
-        <div class="back-face">K</div>
-        <div class="front-face"><img src="images/aloy.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="K">
-        <div class="back-face">K</div>
-        <div class="front-face"><img src="images/aloy.png" alt="" width="95px" height="144px"></div>
-    </div>
-    <div class="card" data-value="L">
-        <div class="back-face">L</div>
-        <div class="front-face"><img src="images/Kassandra.png" alt="" width="100px" height="150px"></div>
-    </div>
-    <div class="card" data-value="L">
-        <div class="back-face">L</div>
-        <div class="front-face"><img src="images/Kassandra.png" alt="" width="100px" height="150px"></div>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-<div class="menu-final">
-                    <div id="scoreboard">
-                        <span>Jogador: <span id="player-name"></span></span>
-                        <span>Tempo: <span id="timer">00:00</span></span> Timer exibido
-                        <button id="restart">Jogar Novamente</button>
-                    </div>                
-                    <div id="dificuldade">
-                        <label><input type="radio" name="dificuldade" value="easy" checked> Fácil</label>
-                        <label><input type="radio" name="dificuldade" value="hard"> Difícil</label>
-                    </div>                
-                    <button id="clear-storage">Limpar Ranking</button>
-                    <button id="iniciar">Iniciar</button>
-                </div>
-
-                <div id="ranking">
-                    <h3>Ranking de Maiores Pontuadores</h3>
-                    <ul id="ranking-list">
-                        A lista dos maiores pontuadores será exibida aqui
-                    </ul>
-                </div>
-
---->

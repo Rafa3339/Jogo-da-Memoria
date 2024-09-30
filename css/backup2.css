@@ -12,7 +12,7 @@ body {
 
 header {
     display: flex;
-    height: 90px; /* Altura do header */
+    height: 90px;
     background-color: #240b47; /* Fundo de header roxo */
     justify-content: space-around;
     align-items: center;
@@ -52,7 +52,7 @@ header {
 main {
     display: flex;
     width: 100%;
-    min-height: 130vh; /* Altura mínima do main */
+    min-height: 130vh;
     justify-content: center;
     background-color: #2a193f; /* Fundo do main roxo */
 }
@@ -98,8 +98,7 @@ main {
 }   
 
 
-#menu-iniciar {
-    display: flex;
+#menu-inicial {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
@@ -111,6 +110,39 @@ main {
     height: 400px;
     text-align: center;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
+}
+
+#menu-final{
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    background-color: #5a4c8b; /* Fundo do conteúdo roxo */
+    padding: 40px;
+    border-radius: 15px;
+    width: 400px;
+    height: 400px;
+    text-align: center;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
+}
+
+.lado-lado{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 30px 20px 10px 20px;
+    width: 43%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.botoes{
+    display: flex;
+    flex-direction: column;
+}
+
+.botoes button{
+    margin: 20px;
 }
 
 .area-dificuldade {
@@ -164,19 +196,23 @@ button:active {
     background-color: #cc9f00; /* Amarelo ainda mais escuro ao clicar */
 }
 
-
-
 #ranking {
-    display: none;
     justify-content: center;
-    width: 75%;
-    height: 50px;
+    flex-wrap: wrap;
+    width: 95%;
+    height: 95%;
+}
+#ranking h3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 15%;
 }
 
 #game {
-    display: none;
-    width: 80%;
-    height: 80vh;
+    width: 95%;
+    height: 95%;
     padding: 0 12px;
     gap: 10px;
     grid-template-columns: repeat(8, 1fr); /* Define 8 colunas */
@@ -201,35 +237,33 @@ button:active {
     width: 100%;
     height: 100%;
     backface-visibility: hidden; /* Oculta a face traseira durante a rotação */
-    display: flex; /* Para centralizar o conteúdo */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    font-size: 2rem; /* Tamanho da fonte */
-    transition: transform 0.6s; /* Duração da animação */
-    border: 1px solid #ddd; /* Borda das cartas */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    transition: transform 0.6s;
+    border: 1px solid #ddd;
     border-radius: 10px;
 }
 
 .front-face {
-    background-color: #fff; /* Cor de fundo da frente */
-    color: black; /* Cor do texto da frente */
-    transform: rotateY(180deg); /* Esconde a frente inicialmente */
-    opacity: 1; /* Garante que a frente não seja transparente */
+    background-color: #fff;
+    color: black;
+    transform: rotateY(180deg);
 }
 
 .back-face {
-    background-color: #ccc; /* Cor de fundo do verso */
-    color: black; /* Texto oculto no verso */
-    transform: rotateY(0deg); /* Mostra o verso inicialmente */
-    opacity: 1; /* Garante que o verso não seja transparente */
+    background-color: #ccc;
+    color: black;
+    transform: rotateY(0deg);
 }
 
 .card.flipped .front-face {
-    transform: rotateY(0deg); /* Mostra a frente da carta quando virada */
+    transform: rotateY(0deg);
 }
 
 .card.flipped .back-face {
-    transform: rotateY(180deg); /* Esconde o verso da carta quando virada */
+    transform: rotateY(180deg);
 }
 
 img {
@@ -262,12 +296,8 @@ footer {
     height: 100vh;
 }
 
-#game-screen {
-    display: none;
-}
-
-.menugame {
-    margin: 10px;
+#cronometro{
+    background-color: #cc9f00;
 }
 
 #timer {
@@ -276,6 +306,14 @@ footer {
     color: white;
 }
 
-.display-none{
+.display-none {
     display: none;
+}
+
+.display-flex{
+    display: flex;
+}
+
+.display-grid{
+    display: grid;
 }

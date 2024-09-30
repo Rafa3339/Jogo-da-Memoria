@@ -126,6 +126,25 @@ main {
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
 }
 
+.lado-lado{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 30px 20px 10px 20px;
+    width: 43%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.botoes{
+    display: flex;
+    flex-direction: column;
+}
+
+.botoes button{
+    margin: 20px;
+}
+
 .area-dificuldade {
     display: flex;
     flex-direction: column;
@@ -179,13 +198,21 @@ button:active {
 
 #ranking {
     justify-content: center;
-    width: 75%;
-    height: 50px;
+    flex-wrap: wrap;
+    width: 95%;
+    height: 95%;
+}
+#ranking h3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 15%;
 }
 
 #game {
-    width: 100%;
-    height: 100%;
+    width: 95%;
+    height: 80%;
     padding: 0 12px;
     gap: 10px;
     grid-template-columns: repeat(8, 1fr); /* Define 8 colunas */
@@ -244,7 +271,7 @@ img {
 }
 
 .card .highlight {
-    background-color: yellow;
+    background-color: #f3b27a;
 }
 
 footer {
@@ -269,12 +296,46 @@ footer {
     height: 100vh;
 }
 
+#cronometro{
+    background-color: #5a4c8b;
+    padding: 5px;
+    border-radius: 5px;
+    border: 5px  solid  #3e326b;
+}
 
 #timer {
     font-size: 1.2rem;
     margin-left: 10px;
     color: white;
 }
+
+#ganhou{
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 450px;
+    height: 150px;
+    background-color: #f0f8ff; /* Um tom suave de azul */
+    color: #ffcc00; /* Título amarelo para contraste */
+    font-family: 'Arial', sans-serif; /* Fonte mais moderna */
+    font-size: 18px; /* Tamanho do texto mais legível */
+    text-align: center; /* Centraliza o texto */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px;
+    background: rgb(103, 11, 207);
+    box-shadow: 0 0 25px rgb(132, 0, 255);
+    border: 2px solid #5e0cc4; /* Borda azul para destaque */
+    z-index: 1000;
+    padding: 20px; /* Espaçamento interno */
+}
+
+#ganhou span {
+    font-weight: bold;
+    font-size: 22px; /* Tamanho maior para destaque */
+}
+
 
 .display-none {
     display: none;
