@@ -20,37 +20,58 @@
     <main>
         <div class="content">
             <h1>Jogo da Memória</h1>
-        <div class="area">
-            <div id="menu-inicial" class="display-flex">
-                <h1>Jogo da Memória</h1>
-                <div class="area-nome">
-                    <label for="name"><input type="text" id="name" name="name" placeholder="Digite seu nome"></label>
+            <div class="area">
+                <div id="menu-inicial" class="display-flex"> <!--Mudar flex depois-->
+                    <h1>Jogo da Memória</h1>
+                    <div class="area-nome">
+                        <label for="name"><input type="text" id="name" name="name" placeholder="Digite seu nome"></label>
+                    </div>
+                    <div class="area-dificuldade">
+                        <label>Dificuldade:</label>
+                        <div>
+                            <input type="radio" id="easy" name="difficulty" value="easy" checked>
+                            <label for="easy">Fácil</label>
+                            <input type="radio" id="hard" name="difficulty" value="hard">
+                            <label for="hard">Difícil</label>
+                        </div>
+                    </div>
+                    <button id="iniciar">Iniciar</button>
                 </div>
-                <div class="area-dificuldade">
-                    <label>Dificuldade:</label>
-                    <div>
-                        <input type="radio" id="easy" name="difficulty" value="easy" checked>
-                        <label for="easy">Fácil</label>
-                        <input type="radio" id="hard" name="difficulty" value="hard">
-                        <label for="hard">Difícil</label>
+                <div id="menu-final" class="display-none">
+                    <button id="restart">Jogar Novamente</button>
+                    <button id="rank">Mostrar Ranking</button>
+                    <div id="scoreboard">
+                        <span>Seu Tempo: <span id="final-timer">00:00</span></span> <!-- Timer exibido -->
+                    </div>
+                </div> 
+                <!-- Seção do ranking -->
+                <div id="ranking" class="display-none">
+                    <h3>Ranking de Maiores Pontuadores</h3>
+                    <div class="lado-lado">
+                        <h3>Fácil</h3>
+                        <div class="easy">
+                            <ul id="ranking-easy">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lado-lado">
+                        <h3>Difícil</h3>
+                        <div class="hard">
+                            <ul id="ranking-hard">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="botoes">
+                        <button id="clear-storage">Limpar Ranking</button>
+                        <button id="voltar">Voltar</button>
                     </div>
                 </div>
-                <button id="iniciar">Iniciar</button>
-            </div>
-            <div id="menu-final" class="display-none">
-                <button id="restart">Jogar Novamente</button>
-                <button id="clear-storage">Limpar Ranking</button>
-                <div id="scoreboard">
-                    <span>Tempo: <span id="timer">00:00</span></span> <!-- Timer exibido -->
+                <div id="cronometro" class="display-none">
+                    <span>Tempo: <span id="timer">00:00</span></span>
                 </div>
-            </div> 
-            <!-- Seção do ranking -->
-            <div id="ranking" class="display-none">
-                <h3>Ranking de Maiores Pontuasdores</h3>
-                <ul id="ranking-list">
-                </ul>
-            </div>
-            
+                <div id="ganhou" class="display-none">
+                    <span id="mensagem"></span>
+                </div>
                 <div id="game" class="display-none">
                     <div class="card" data-value="A">
                         <div class="back-face">A</div>
@@ -151,8 +172,10 @@
                 </div>
             </div>
         </div>
-        </div>
     </main>
     <script src="js/script.js"></script>
+    <footer>
+
+    </footer>
 </body>
 </html>

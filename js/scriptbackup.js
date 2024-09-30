@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const board = document.getElementById('game');
     const timerDisplay = document.getElementById('timer');
-    const rankingList = document.getElementById('ranking-list');
+    const finalTimer = document.getElementById('final-timer')
+    const rankingEasy = document.getElementById('ranking-easy');
+    const rankingHard = document.getElementById('ranking-hard');
     let flippedCards = [];
     let startTime;
     let timerInterval;
@@ -87,38 +89,63 @@ document.addEventListener('DOMContentLoaded', () => {
     function checkWin() {
         if (document.querySelectorAll('.card.flipped').length === document.querySelectorAll('.card').length) {
             const timeSpent = stopTimer(); // Para o cronômetro e retorna o tempo total
-            alert(`Parabéns, ${playerName}! Você completou o jogo em ${formatTime(timeSpent)}.`);
+            finalTimer.textContent = formatTime(timeSpent);
+            const vitoria = document.getElementById('mensagem');
+            vitoria.innerHTML = `Parabéns, ${playerName}! Você completou o jogo em ${formatTime(timeSpent)}.<br>Voltando ao menu...`; // Altera o conteúdo da span
             saveScore(playerName, timeSpent); // Salva o tempo no ranking
-            displayRanking(); // Exibe o ranking atualizado
-            document.getElementById('menu-final').classList.remove('display-none');
-            document.getElementById('menu-final').classList.add('display-flex');
-            document.getElementById('game').classList.remove('display-grid');
-            document.getElementById('game').classList.add('display-none');
-            document.getElementById('ranking').classList.remove('display-none');
-            document.getElementById('ranking').classList.add('display-flex');
+            document.getElementById('ganhou').classList.remove('display-none');
+            document.getElementById('ganhou').classList.add('display-flex');
+            setTimeout(() => {
+                document.getElementById('ganhou').classList.remove('display-flex');
+                document.getElementById('ganhou').classList.add('display-none');
+                document.getElementById('cronometro').classList.remove('display-flex');
+                document.getElementById('cronometro').classList.add('display-none');
+                document.getElementById('menu-final').classList.remove('display-none');
+                document.getElementById('menu-final').classList.add('display-flex');
+                document.getElementById('game').classList.remove('display-grid');
+                document.getElementById('game').classList.add('display-none');
+            }, 3000);
+            
+            // document.getElementById('ranking').classList.remove('display-none');
+            // document.getElementById('ranking').classList.add('display-flex');
         }
     }
 
     function saveScore(player, time) {
-        const scores = JSON.parse(localStorage.getItem('ranking')) || [];
-        scores.push({ player, time });
-        // Ordena as pontuações pelo menor tempo (ascendente)
-        scores.sort((a, b) => a.time - b.time);
-        // Mantém apenas os 5 melhores tempos
-        localStorage.setItem('ranking', JSON.stringify(scores.slice(0, 5)));
+        if(difficulty === 'hard'){
+            const scores = JSON.parse(localStorage.getItem('ranking-hard')) || [];
+            scores.push({ player, time });
+            scores.sort((a, b) => a.time - b.time);
+            localStorage.setItem('ranking-hard', JSON.stringify(scores.slice(0, 5)));
+        }
+        else{
+            const scores = JSON.parse(localStorage.getItem('ranking-easy')) || [];
+            scores.push({ player, time });
+            scores.sort((a, b) => a.time - b.time);
+            localStorage.setItem('ranking-easy', JSON.stringify(scores.slice(0, 5)));
+        }
     }
 
     function displayRanking() {
-        const scores = JSON.parse(localStorage.getItem('ranking')) || [];
-        rankingList.innerHTML = ''; // Limpa o ranking anterior
-
-        // Exibe os top 5 jogadores com menor tempo
-        scores.forEach((score, index) => {
+        rankingEasy.innerHTML = ''; // Limpa o ranking anterior antes de adicionar os novos dados
+        rankingHard.innerHTML = ''; // Limpa o ranking anterior antes de adicionar os novos dados
+        
+        const scoresHard = JSON.parse(localStorage.getItem('ranking-hard')) || [];
+        const scoresEasy = JSON.parse(localStorage.getItem('ranking-easy')) || [];
+    
+        scoresHard.forEach((score, index) => {
             const listItem = document.createElement('li');
             listItem.textContent = `${index + 1}. ${score.player} - Tempo: ${formatTime(score.time)}`;
-            rankingList.appendChild(listItem);
+            rankingHard.appendChild(listItem);
+        });
+    
+        scoresEasy.forEach((score, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${index + 1}. ${score.player} - Tempo: ${formatTime(score.time)}`;
+            rankingEasy.appendChild(listItem);
         });
     }
+    
 
     function reshuffleCards() {
         const unflippedCards = Array.from(document.querySelectorAll('.card:not(.flipped)'));
@@ -151,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 highlighted.forEach(highlight => {
                     highlight.classList.remove('highlight');
                 });
-            }, 1200);
+            }, 1000);
         }
     }
 
@@ -159,6 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
     cards.forEach(card => card.addEventListener('click', flipCard));
 
     document.getElementById('restart').addEventListener('click', () =>{
+        document.getElementById('cronometro').classList.remove('display-none');
+        document.getElementById('cronometro').classList.add('display-flex');
         document.getElementById('menu-final').classList.remove('display-flex');
         document.getElementById('menu-final').classList.add('display-none');
         document.getElementById('game').classList.remove('display-none');
@@ -168,8 +197,21 @@ document.addEventListener('DOMContentLoaded', () => {
         setupGame();
     });
     // Exibe o ranking ao carregar a página
-    displayRanking();
-    
+    document.getElementById("rank").addEventListener('click', () => {
+        document.getElementById('menu-final').classList.remove('display-flex');
+        document.getElementById('menu-final').classList.add('display-none');
+        document.getElementById("ranking").classList.remove('display-none');
+        document.getElementById("ranking").classList.add('display-flex');
+        displayRanking();
+    });
+
+
+    document.getElementById('voltar').addEventListener('click', () => {
+        document.getElementById('ranking').classList.remove('display-flex');
+        document.getElementById('ranking').classList.add('display-none');
+        document.getElementById('menu-final').classList.remove('display-none');
+        document.getElementById('menu-final').classList.add('display-flex');
+    })  
 
     document.getElementById('iniciar').addEventListener('click', () => {
         difficulty = document.querySelector('input[name="difficulty"]:checked').value;
@@ -183,6 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('menu-inicial').classList.add('display-none');
         document.getElementById('game').classList.remove('display-none');
         document.getElementById('game').classList.add('display-grid');
+        document.getElementById('cronometro').classList.remove('display-none');
+        document.getElementById('cronometro').classList.add('display-flex');
         
         // Aqui você pode usar a dificuldade para configurar o jogo conforme necessário
         setupGame(); // Exemplo de função que você já tem
@@ -190,8 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     document.getElementById('clear-storage').addEventListener('click', () => {
-        localStorage.removeItem('ranking'); // Para apagar um item específico
-        // localStorage.clear(); // Para apagar todos os itens
+        localStorage.clear(); // Para apagar todos os itens
         alert('Ranking limpo!');
     });
     
