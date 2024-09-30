@@ -186,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cards.forEach(card => card.addEventListener('click', flipCard));
 
     document.getElementById('restart').addEventListener('click', () =>{
+        difficulty = document.querySelector('input[name="changedifficulty"]:checked').value;
         document.getElementById('cronometro').classList.remove('display-none');
         document.getElementById('cronometro').classList.add('display-flex');
         document.getElementById('menu-final').classList.remove('display-flex');
