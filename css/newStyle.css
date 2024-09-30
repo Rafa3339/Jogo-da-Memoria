@@ -12,7 +12,7 @@ body {
 
 header {
     display: flex;
-    height: 90px;
+    height: 90px; /* Altura do header */
     background-color: #240b47; /* Fundo de header roxo */
     justify-content: space-around;
     align-items: center;
@@ -52,7 +52,7 @@ header {
 main {
     display: flex;
     width: 100%;
-    min-height: 130vh;
+    min-height: 130vh; /* Altura mínima do main */
     justify-content: center;
     background-color: #2a193f; /* Fundo do main roxo */
 }
@@ -91,21 +91,25 @@ main {
 .area {
     height: 80%;
     width: 80%;
+    display: flex;
     background-color: blue;
     border-radius: 25px;
     padding: 10px;
 }   
+
 
 #menu-iniciar {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    text-align: center;
     background-color: #5a4c8b; /* Fundo do conteúdo roxo */
     padding: 40px;
     border-radius: 15px;
     width: 400px;
     height: 400px;
+    text-align: center;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
 }
 
@@ -160,13 +164,17 @@ button:active {
     background-color: #cc9f00; /* Amarelo ainda mais escuro ao clicar */
 }
 
+
+
 #ranking {
+    display: none;
     justify-content: center;
     width: 75%;
     height: 50px;
 }
 
 #game {
+    display: none;
     width: 80%;
     height: 80vh;
     padding: 0 12px;
@@ -193,33 +201,35 @@ button:active {
     width: 100%;
     height: 100%;
     backface-visibility: hidden; /* Oculta a face traseira durante a rotação */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    transition: transform 0.6s;
-    border: 1px solid #ddd;
+    display: flex; /* Para centralizar o conteúdo */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    font-size: 2rem; /* Tamanho da fonte */
+    transition: transform 0.6s; /* Duração da animação */
+    border: 1px solid #ddd; /* Borda das cartas */
     border-radius: 10px;
 }
 
 .front-face {
-    background-color: #fff;
-    color: black;
-    transform: rotateY(180deg);
+    background-color: #fff; /* Cor de fundo da frente */
+    color: black; /* Cor do texto da frente */
+    transform: rotateY(180deg); /* Esconde a frente inicialmente */
+    opacity: 1; /* Garante que a frente não seja transparente */
 }
 
 .back-face {
-    background-color: #ccc;
-    color: black;
-    transform: rotateY(0deg);
+    background-color: #ccc; /* Cor de fundo do verso */
+    color: black; /* Texto oculto no verso */
+    transform: rotateY(0deg); /* Mostra o verso inicialmente */
+    opacity: 1; /* Garante que o verso não seja transparente */
 }
 
 .card.flipped .front-face {
-    transform: rotateY(0deg);
+    transform: rotateY(0deg); /* Mostra a frente da carta quando virada */
 }
 
 .card.flipped .back-face {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg); /* Esconde o verso da carta quando virada */
 }
 
 img {
@@ -252,6 +262,13 @@ footer {
     height: 100vh;
 }
 
+#game-screen {
+    display: none;
+}
+
+.menugame {
+    margin: 10px;
+}
 
 #timer {
     font-size: 1.2rem;
@@ -259,14 +276,6 @@ footer {
     color: white;
 }
 
-.display-none {
+.display-none{
     display: none;
-}
-
-.display-flex{
-    display: flex;
-}
-
-.display-grid{
-    display: grid;
 }

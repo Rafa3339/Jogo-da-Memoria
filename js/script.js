@@ -1,169 +1,180 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const areaDeJogo = document.getElementById('game');
-    const resetBtn = document.getElementById('restart');
-    const tempo = document.getElementById('timer');
-    const ranking = document.getElementById('ranking-list');
-    let cartasViradas = [];
-    let tempoInicial;
-    let intervaloTempo;
-    var dificuldade;
-    let nomeJogador; // pegar nome depois
-    let contador = 0;
-    let contadorReembaralha = 0;
-    document.getElementById('player-name').textContent = nomeJogador;
+    const board = document.getElementById('game');
+    const restartBtn = document.getElementById('restart');
+    const timerDisplay = document.getElementById('timer');
+    const rankingList = document.getElementById('ranking-list');
+    let flippedCards = [];
+    let startTime;
+    let timerInterval;
+    var difficulty;
+    let playerName = prompt('Digite seu nome:') || 'Jogador';
+    let matchCount = 0;
+    let reshuffleCounter = 0;
+    document.getElementById('player-name').textContent = playerName;
 
     // Função para formatar o tempo como MM:SS
-    function formatarTempo(segundos) {
-        const minutos = Math.floor(segundos / 60);
-        const segun = segundos % 60;
-        return `${minutos < 10 ? '0' : ''}${minutos}:${segun < 10 ? '0' : ''}${segun}`;
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes < 10 ? '0' : ''}${minutes}:${secs < 10 ? '0' : ''}${secs}`;
     }
 
     // Função para iniciar o cronômetro
-    function iniciarTemporizador() {
-        tempoInicial = Date.now();
-        intervaloTempo = setInterval(() => {
-            const tempoGasto = Math.floor((Date.now() - tempoInicial) / 1000);
-            tempo.textContent = formatarTempo(tempoGasto);
+    function startTimer() {
+        startTime = Date.now();
+        timerInterval = setInterval(() => {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+            timerDisplay.textContent = formatTime(elapsedTime);
         }, 1000);
     }
 
     // Função para parar o cronômetro
-    function pararCronometro() {
-        clearInterval(intervaloTempo);
-        const tempoTotal = Math.floor((Date.now() - tempoInicial) / 1000);
-        return tempoTotal;
+    function stopTimer() {
+        clearInterval(timerInterval);
+        const totalTime = Math.floor((Date.now() - startTime) / 1000);
+        return totalTime;
     }
 
-    function configuraJogo() {
-        const cartas = Array.from(document.querySelectorAll('.card'));
-        cartas.forEach(carta => {
-            carta.classList.remove('flipped');
+    function setupGame() {
+        const cards = Array.from(document.querySelectorAll('.card'));
+        cards.forEach(card => {
+            card.classList.remove('flipped');
         });
 
-        const embaralha = cartas.sort(() => Math.random() - 0.5);
-        areaDeJogo.innerHTML = '';
-        embaralha.forEach(carta => areaDeJogo.appendChild(carta));
+        const shuffledCards = cards.sort(() => Math.random() - 0.5);
+        board.innerHTML = '';
+        shuffledCards.forEach(card => board.appendChild(card));
 
-        contador = 0;
-        contadorReembaralha = 0;
-        tempo.textContent = "00:00";
-        clearInterval(intervaloTempo);
-        iniciarTemporizador(); // Inicia o cronômetro ao começar o jogo
+        matchCount = 0;
+        reshuffleCounter = 0;
+        timerDisplay.textContent = "00:00";
+        clearInterval(timerInterval);
+        startTimer(); // Inicia o cronômetro ao começar o jogo
     }
 
-    function virarCarta() {
-        if (cartasViradas.length < 2 && !this.classList.contains('flipped')) {
+    function flipCard() {
+        if (flippedCards.length < 2 && !this.classList.contains('flipped')) {
             this.classList.add('flipped');
-            cartasViradas.push(this);
+            flippedCards.push(this);
 
-            if (cartasViradas.length === 2) {
-                checarIguais();
+            if (flippedCards.length === 2) {
+                checkForMatch();
             }
         }
     }
 
-    function checarIguais() {
-        const [primeira, segunda] = cartasViradas;
+    function checkForMatch() {
+        const [first, second] = flippedCards;
 
-        if (primeira.dataset.value === segunda.dataset.value) {
-            cartasViradas = [];
-            contador++;
-            contadorReembaralha++;
+        if (first.dataset.value === second.dataset.value) {
+            flippedCards = [];
+            matchCount++;
+            reshuffleCounter++;
 
-            checarVitoria();
+            checkWin();
 
-            if (contadorReembaralha === 2 && dificuldade === 'hard') {
-                reembaralhar();
-                contadorReembaralha = 0;
+            if (reshuffleCounter === 2 && difficulty === 'hard') {
+                reshuffleCards();
+                reshuffleCounter = 0;
             }
         } else {
             setTimeout(() => {
-                primeira.classList.remove('flipped');
-                segunda.classList.remove('flipped');
-                cartasViradas = [];
+                first.classList.remove('flipped');
+                second.classList.remove('flipped');
+                flippedCards = [];
             }, 1000);
         }
     }
 
-    function checarVitoria() {
+    function checkWin() {
         if (document.querySelectorAll('.card.flipped').length === document.querySelectorAll('.card').length) {
-            const tempoUsado = pararCronometro(); // Para o cronômetro e retorna o tempo total
-            alert(`Parabéns, ${nomeJogador}! Você completou o jogo em ${formatarTempo(tempoUsado)}.`);
-            salvarPontos(nomeJogador, tempoUsado); // Salva o tempo no ranking
-            mostrarRank(); // Exibe o ranking atualizado
+            const timeSpent = stopTimer(); // Para o cronômetro e retorna o tempo total
+            alert(`Parabéns, ${playerName}! Você completou o jogo em ${formatTime(timeSpent)}.`);
+            saveScore(playerName, timeSpent); // Salva o tempo no ranking
+            displayRanking(); // Exibe o ranking atualizado
+            document.getElementById('menugame').classList.remove('display-none');
+            document.getElementById('menugame').classList.add('display-flex');
+            document.getElementById('game').classList.remove('display-grid');
+            document.getElementById('game').classList.add('display-none');
+            document.getElementById('ranking').classList.remove('display-none');
+            document.getElementById('ranking').classList.add('display-flex');
         }
     }
 
-    function salvarPontos(jogador, time) {
-        const placar = JSON.parse(localStorage.getItem('ranking')) || [];
-        placar.push({ jogador, time });
+    function saveScore(player, time) {
+        const scores = JSON.parse(localStorage.getItem('ranking')) || [];
+        scores.push({ player, time });
         // Ordena as pontuações pelo menor tempo (ascendente)
-        placar.sort((a, b) => a.time - b.time);
+        scores.sort((a, b) => a.time - b.time);
         // Mantém apenas os 5 melhores tempos
-        localStorage.setItem('ranking', JSON.stringify(placar.slice(0, 5)));
+        localStorage.setItem('ranking', JSON.stringify(scores.slice(0, 5)));
     }
 
-    function mostrarRank() {
-        const placar = JSON.parse(localStorage.getItem('ranking')) || [];
-        ranking.innerHTML = ''; // Limpa o ranking anterior
+    function displayRanking() {
+        const scores = JSON.parse(localStorage.getItem('ranking')) || [];
+        rankingList.innerHTML = ''; // Limpa o ranking anterior
 
         // Exibe os top 5 jogadores com menor tempo
-        placar.forEach((score, index) => {
-            const listaRank = document.createElement('li');
-            listaRank.textContent = `${index + 1}. ${score.jogador} - Tempo: ${formatarTempo(score.time)}`;
-            ranking.appendChild(listaRank);
+        scores.forEach((score, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${index + 1}. ${score.player} - Tempo: ${formatTime(score.time)}`;
+            rankingList.appendChild(listItem);
         });
     }
 
-    function reembaralhar() {
-        const naoViradas = Array.from(document.querySelectorAll('.card:not(.flipped)'));
-        const todasCartas = Array.from(document.querySelectorAll('.card'));
+    function reshuffleCards() {
+        const unflippedCards = Array.from(document.querySelectorAll('.card:not(.flipped)'));
+        const allCards = Array.from(document.querySelectorAll('.card'));
 
-        if (naoViradas.length > 1) {
-            naoViradas.forEach(carta => {
-                const verso = carta.querySelector('.back-face');
-                if (verso) {
-                    verso.classList.add('highlight');
+        if (unflippedCards.length > 1) {
+            unflippedCards.forEach(card => {
+                const backFace = card.querySelector('.back-face');
+                if (backFace) {
+                    backFace.classList.add('highlight');
                 }
             });
 
-            const naoViradasEmbaralhadas = naoViradas.sort(() => Math.random() - 0.5);
+            const shuffledUnflippedCards = unflippedCards.sort(() => Math.random() - 0.5);
 
-            const novaArea = [];
-            todasCartas.forEach(carta => {
-                if (carta.classList.contains('flipped')) {
-                    novaArea.push(carta);
+            const newBoard = [];
+            allCards.forEach(card => {
+                if (card.classList.contains('flipped')) {
+                    newBoard.push(card);
                 } else {
-                    novaArea.push(naoViradasEmbaralhadas.shift());
+                    newBoard.push(shuffledUnflippedCards.shift());
                 }
             });
 
-            areaDeJogo.innerHTML = '';
-            novaArea.forEach(carta => areaDeJogo.appendChild(carta));
+            board.innerHTML = '';
+            newBoard.forEach(card => board.appendChild(card));
 
             setTimeout(() => {
-                const destaque = document.querySelectorAll('.highlight');
-                destaque.forEach(destacada => {
-                    destacada.classList.remove('highlight');
+                const highlighted = document.querySelectorAll('.highlight');
+                highlighted.forEach(highlight => {
+                    highlight.classList.remove('highlight');
                 });
             }, 1200);
         }
     }
 
-    const cartas = document.querySelectorAll('.card');
-    cartas.forEach(carta => carta.addEventListener('click', virarCarta));
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => card.addEventListener('click', flipCard));
 
-    resetBtn.addEventListener('click', configuraJogo);
+    restartBtn.addEventListener('click', setupGame);
 
     // Exibe o ranking ao carregar a página
-    mostrarRank();
+    displayRanking();
     
 
     document.getElementById('iniciar').addEventListener('click', () => {
-        dificuldade = document.querySelector('input[name="dificuldade"]:checked').value;
+        difficulty = document.querySelector('input[name="difficulty"]:checked').value;
+        document.getElementById('menugame').classList.remove('display-flex');
+        document.getElementById('menugame').classList.add('display-none');
+        document.getElementById('game').classList.remove('display-none');
+        document.getElementById('game').classList.add('display-grid');
+        
         // Aqui você pode usar a dificuldade para configurar o jogo conforme necessário
-        configuraJogo(); // Exemplo de função que você já tem
+        setupGame(); // Exemplo de função que você já tem
     });
     
 
