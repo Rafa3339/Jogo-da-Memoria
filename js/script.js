@@ -2,11 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const board = document.getElementById('game');
     const restartBtn = document.getElementById('restart');
     const timerDisplay = document.getElementById('timer');
-    const difficulty = document.getElementById('difficulty');
     const rankingList = document.getElementById('ranking-list');
     let flippedCards = [];
     let startTime;
     let timerInterval;
+    var difficulty;
     let playerName = prompt('Digite seu nome:') || 'Jogador';
     let matchCount = 0;
     let reshuffleCounter = 0;
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             checkWin();
 
-            if (reshuffleCounter === 2) {
+            if (reshuffleCounter === 2 && difficulty === 'hard') {
                 reshuffleCards();
                 reshuffleCounter = 0;
             }
@@ -158,7 +158,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Exibe o ranking ao carregar a página
     displayRanking();
-    setupGame();
+    
+
+    document.getElementById('iniciar').addEventListener('click', () => {
+        difficulty = document.querySelector('input[name="difficulty"]:checked').value;
+        // Aqui você pode usar a dificuldade para configurar o jogo conforme necessário
+        setupGame(); // Exemplo de função que você já tem
+    });
+    
 
     document.getElementById('clear-storage').addEventListener('click', () => {
         localStorage.removeItem('ranking'); // Para apagar um item específico
