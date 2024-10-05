@@ -6,14 +6,14 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #1a0f2f; /* Fundo roxo escuro */
+    background-color: #1a0f2f;
     color: white;
 }
 
 header {
     display: flex;
     height: 90px;
-    background-color: #240b47; /* Fundo de header roxo */
+    background-color: #240b47;
     justify-content: space-around;
     align-items: center;
     padding: 10px;
@@ -40,13 +40,14 @@ header {
 }
 
 .menu li a {
+    color: #ffcc00;
+    font-size: 30px;
     text-decoration: none;
-    color: white;
     transition: color 0.3s, transform 0.3s;
 }
 
 .menu li a:hover {
-    color: aquamarine; /* Efeito de hover */
+    color: aquamarine;
     transform: scale(1.1);
 }
 
@@ -55,43 +56,43 @@ main {
     width: 100%;
     min-height: 130vh;
     justify-content: center;
-    background-color: #2a193f; /* Fundo do main roxo */
+    background-color: #2a193f;
 }
 
-.content {
+.conteudo {
     margin: 20px;
     padding: 20px;
     display: flex;
-    flex-direction: column; /* Permite o empilhamento vertical */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #5a4c8b; /* Fundo do conteúdo roxo */
+    background-color: #5a4c8b;
     width: 90%;
-    height: auto; /* Altura automática para o conteúdo */
+    height: auto;
     border-radius: 40px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
-.content h1 {
-    width: 80%;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #ffcc00; /* Título amarelo para contraste */
-    text-align: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
-
-.content .area {
+.conteudo .area {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    background-color: #3e2a5b; /* Fundo da área roxo */
+    background-color: #3e2a5b;
+    box-shadow: 0 0 10px 10px rgba(137, 151, 13, 0.5);
+}
+
+.conteudo .area h1 {
+    width: 80%;
+    font-size: 24px;
+    color: #ffcc00;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .area {
     height: 80%;
-    width: 80%;
+    width: 90%;
     padding: 10px;
     border-radius: 25px;
 }
@@ -102,7 +103,7 @@ main {
     justify-content: space-around;
     align-items: center;
     text-align: center;
-    background-color: #5a4c8b; /* Fundo do conteúdo roxo */
+    background-color: #5a4c8b;
     padding: 40px;
     border-radius: 15px;
     width: 400px;
@@ -138,24 +139,24 @@ main {
 
 label {
     margin: 10px;
-    color: white; /* Cor dos labels */
+    color: white;
 }
 
 input[type="text"] {
     width: 100%;
     padding: 10px;
-    border: 2px solid #ffcc00; /* Borda amarela */
+    border: 2px solid #ffcc00;
     border-radius: 8px;
     font-size: 16px;
     margin-top: 5px;
-    background-color: #3e2a5b; /* Fundo do input roxo */
-    color: white; /* Cor do texto do input */
+    background-color: #3e2a5b;
+    color: white;
     transition: border-color 0.3s;
 }
 
 input[type="text"]:focus {
     outline: none;
-    border-color: #ffd700; /* Borda amarela ao focar */
+    border-color: #ffd700;
     box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
 }
 
@@ -164,7 +165,7 @@ input[type="radio"] {
 }
 
 button {
-    background-color: #ffcc00; /* Botão amarelo */
+    background-color: #ffcc00;
     color: black;
     padding: 10px 20px;
     font-size: 18px;
@@ -175,12 +176,12 @@ button {
 }
 
 button:hover {
-    background-color: #e6b800; /* Amarelo mais escuro no hover */
+    background-color: #e6b800;
     transform: translateY(-2px);
 }
 
 button:active {
-    background-color: #cc9f00; /* Amarelo ainda mais escuro ao clicar */
+    background-color: #cc9f00;
     transform: translateY(1px);
 }
 
@@ -197,38 +198,39 @@ button:active {
     text-align: center;
 }
 
-#game {
+#jogo {
+    justify-items: center;
     width: 95%;
     height: 80%;
     padding: 0 12px;
     gap: 10px;
-    grid-template-columns: repeat(8, 1fr); /* Define 8 colunas */
-    background-color: #5a4c8b; /* Fundo do jogo roxo */
+    grid-template-columns: repeat(8, 1fr);
+    background-color: #5a4c8b;
     border-radius: 25px;
     align-items: center;
 }
 
-.card {
+.carta {
     width: 100px;
     height: 150px;
     position: relative;
-    perspective: 1000px; /* Define a perspectiva para 3D */
-    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    perspective: 1000px;
+    cursor: pointer;
     border-radius: 10px;
-    border: 3px solid darkblue; /* Borda para as cartas */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidade */
+    border: 3px solid darkblue;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s;
 }
 
-.card:hover {
-    transform: scale(1.05); /* Aumenta levemente ao passar o mouse */
+.carta:hover {
+    transform: scale(1.05);
 }
 
-.card .front-face, .card .back-face {
+.carta .frente, .carta .verso {
     position: absolute;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden; /* Oculta a face traseira durante a rotação */
+    backface-visibility: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -237,23 +239,23 @@ button:active {
     border-radius: 10px;
 }
 
-.front-face {
+.frente {
     background-color: #fff;
     color: black;
     transform: rotateY(180deg);
 }
 
-.back-face {
+.verso {
     background-color: #ccc;
     color: black;
     transform: rotateY(0deg);
 }
 
-.card.flipped .front-face {
+.carta.virada .frente {
     transform: rotateY(0deg);
 }
 
-.card.flipped .back-face {
+.carta.virada .verso {
     transform: rotateY(180deg);
 }
 
@@ -261,19 +263,37 @@ img {
     border-radius: 10px;
 }
 
-.card .highlight {
+.carta .destaque {
     background-color: #f3b27a;
 }
 
 footer {
+    padding: 15px;
     display: flex;
-    justify-content: space-around;
-    background-color: #240b47; /* Fundo do footer roxo */
-    color: white;
+    flex-direction: column;
+    align-items: center;
+    background-color: #240b47;
+    color: #ffcc00;
     text-align: center;
     padding: 10px;
     width: 100%;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+}
+
+footer .membros{
+    padding: 5px;
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+}
+
+footer a {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+footer a:hover{
+    color: aquamarine;
+    transform: scale(1.05);
 }
 
 #cronometro {
@@ -283,7 +303,7 @@ footer {
     border: 5px solid #3e326b;
 }
 
-#timer {
+#tempo {
     font-size: 1.2rem;
     margin-left: 10px;
     color: white;
@@ -295,18 +315,18 @@ footer {
     align-items: center;
     width: 450px;
     height: 150px;
-    background-color: rgba(255, 215, 0, 0.1); /* Fundo suave */
-    color: #ffcc00; /* Título amarelo para contraste */
-    font-family: 'Arial', sans-serif; /* Fonte mais moderna */
-    font-size: 18px; /* Tamanho do texto mais legível */
-    text-align: center; /* Centraliza o texto */
+    background-color: rgba(255, 215, 0, 0.1);
+    color: #ffcc00;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    text-align: center;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 20px;
-    background: rgb(103, 26, 162); /* Um gradiente leve */
+    background: rgb(103, 26, 162);
     opacity: 0.9;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Sombra para destaque */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
     z-index: 1000;
     padding: 20px;
 }
@@ -322,3 +342,4 @@ footer {
 .display-grid{
     display: grid;
 }
+
