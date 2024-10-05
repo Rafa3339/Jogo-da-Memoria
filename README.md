@@ -11,9 +11,9 @@
 - Para executar o projeto replicado, basta abrir o arquivo `index.html` em um navegador.
 # Créditos e Referências
 - Design das cartas inspirado em personagens populares de videogames como Kratos, Geralt, Mario, Sonic, entre outros.
-- Referências utilizadas
-[Site oficial JavaScript](https://javascript.info/)
-- [DOM (Document Object Model)](https://youtu.be/HOv9CqqAZk0)
-[Playlist: Curso de Javascript completo](https://www.youtube.com/watch?v=vEwPnjqWQ-g&list=PL2Fdisxwzt_d590u3uad46W-kHA0PTjjw&pp=iAQB)
+## Referências utilizadas
+- [Site oficial JavaScript](https://javascript.info/)
+- [vídeo: DOM (Document Object Model)](https://youtu.be/HOv9CqqAZk0)
+- [Playlist: Curso de Javascript completo](https://www.youtube.com/watch?v=vEwPnjqWQ-g&list=PL2Fdisxwzt_d590u3uad46W-kHA0PTjjw&pp=iAQB)
 # Licensa
 - Este projeto está sob a licença [MIT](https://choosealicense.com/licenses/mit/)
