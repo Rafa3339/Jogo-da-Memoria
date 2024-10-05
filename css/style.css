@@ -74,10 +74,15 @@ main {
 }
 
 .conteudo .area {
+    
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    height: 80%;
+    width: 90%;
+    padding: 10px;
+    border-radius: 25px;
     background-color: #3e2a5b;
     box-shadow: 0 0 10px 10px rgba(137, 151, 13, 0.5);
 }
@@ -90,15 +95,7 @@ main {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
-.area {
-    height: 80%;
-    width: 90%;
-    padding: 10px;
-    border-radius: 25px;
-}
-
-#menu-inicial,
-#menu-final {
+#menu-inicial, #menu-final {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;

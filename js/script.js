@@ -12,12 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let acertos = 0;
     let quantReembaralha = 0;
 
+    // Função para deixar tempo em mm:ss
     function formatarTempo(segundos) {
         const minutos = Math.floor(segundos / 60);
         const segs = segundos % 60;
         return `${minutos < 10 ? '0' : ''}${minutos}:${segs < 10 ? '0' : ''}${segs}`;
     }
 
+    // Função pra iniciar cronômetro
     function iniciarCronometro() {
         tempoInicial = Date.now();
         intervaloTempo = setInterval(() => {
@@ -26,12 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
+    // Função para para cronômetro
     function pararCronometro() {
         clearInterval(intervaloTempo);
         const tempoTotal = Math.floor((Date.now() - tempoInicial) / 1000);
         return tempoTotal;
     }
 
+    // Função para iniciar jogo
     function iniciarJogo() {
         const cartas = Array.from(document.querySelectorAll('.carta'));
         cartas.forEach(carta => {
@@ -49,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         iniciarCronometro(); 
     }
 
-
+    // Função para virar as cartas selecionadas
     function virarCarta() {
         if (cartasViradas.length < 2 && !this.classList.contains('virada')) {
             this.classList.add('virada');
@@ -61,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Função para verificar se as cartas selecionadas são iguais
     function checarAcerto() {
         const [primeira, segunda] = cartasViradas;
 
@@ -84,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Função para verificar se todos os pares foram encontrados
     function checarVitoria() {
         if (document.querySelectorAll('.carta.virada').length === document.querySelectorAll('.carta').length) {
             const tempoUsado = pararCronometro(); 
@@ -106,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // função para salvar o rank em local storage
     function salvarRank(jogador, tempo) {
         if(dificuldade === 'dificil'){
             const ranks = JSON.parse(localStorage.getItem('ranking-dificil')) || [];
@@ -121,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Função para exibir o ranking
     function mostrarRanking() {
         rankFacil.innerHTML = '';
         rankDificil.innerHTML = ''; 
@@ -142,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
 
+    // Função para reembaralhar cartas (modo difícil)
     function reembaralhar() {
         const cartasNaoViradas = Array.from(document.querySelectorAll('.carta:not(.virada)'));
         const todasCartas = Array.from(document.querySelectorAll('.carta'));
@@ -216,15 +225,12 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Por favor, digite seu nome!');
             return; 
         }
-        
         document.getElementById('menu-inicial').classList.remove('display-flex');
         document.getElementById('menu-inicial').classList.add('display-none');
         document.getElementById('jogo').classList.remove('display-none');
         document.getElementById('jogo').classList.add('display-grid');
         document.getElementById('cronometro').classList.remove('display-none');
         document.getElementById('cronometro').classList.add('display-flex');
-        
-       
         iniciarJogo(); 
     });
     
