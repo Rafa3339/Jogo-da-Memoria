@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const jogo = document.getElementById('jogo');
     const cronometro = document.getElementById('tempo');
-    const tempoFinal = document.getElementById('tempo-final')
+    const tempoFinal = document.getElementById('tempo-final');
     const rankFacil = document.getElementById('ranking-facil');
     const rankDificil = document.getElementById('ranking-dificil');
     let cartasViradas = [];
